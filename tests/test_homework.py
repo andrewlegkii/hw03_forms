@@ -4,7 +4,7 @@ import pytest
 from django.contrib.admin.sites import site
 from django.contrib.auth import get_user_model
 from django.db.models import fields
-from django.template.loader import select_template
+from django.template.loader import get_template
 
 try:
     from posts.models import Post
@@ -184,8 +184,7 @@ class TestGroupView:
         group = post_with_group.group
         html = response.content.decode()
 
-        templates_list = ['group_list.html', 'posts/group_list.html']
-        html_template = select_template(templates_list).template.source
+        html_template = get_template('group.html').template.source
 
         assert search_refind(r'{%\s*for\s+.+in.*%}', html_template), (
             'Отредактируйте HTML-шаблон, используйте тег цикла'
@@ -195,13 +194,22 @@ class TestGroupView:
         )
 
         assert re.search(
-            r'<\s*h1\s*>\s*' + group.title + r'\s*<\s*\/h1\s*>',
+            r'<\s*title\s*>\s*Записи\s+сообщества\s+' + group.title + r'\s+\|\s+Yatube\s*<\s*\/title\s*>',
             html
         ), (
-            'Отредактируйте HTML-шаблон, не найден заголовок группы '
-            '`{% block header %}{{ название_группы }}{% endblock %}`'
+            'Отредактируйте HTML-шаблон, не найдено название страницы '
+            '`<title>Записи сообщества {{ название_группы }} | Yatube</title>`'
         )
+        assert re.search(
+            r'<\s*h1\s*>\s*' + group.title + r'\s*<\s*\/h1\s*>',
+            html
+        ), 'Отредактируйте HTML-шаблон, не найден заголовок группы `<h1>{{ название_группы }}</h1>`'
         assert re.search(
             r'<\s*p\s*>\s*' + group.description + r'\s*<\s*\/p\s*>',
             html
         ), 'Отредактируйте HTML-шаблон, не найдено описание группы `<p>{{ описание_группы }}</p>`'
+
+        assert re.search(
+            r'<\s*p(\s+class=".+"|\s*)>\s*' + post_with_group.text + r'\s*<\s*\/p\s*>',
+            html
+        ), 'Отредактируйте HTML-шаблон, не найден текст поста `<p>{{ текст_поста }}</p>`'
