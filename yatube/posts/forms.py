@@ -1,11 +1,17 @@
-from django.forms import ModelForm
+from django import forms
 
 from .models import Post
 
 
-class PostForm(ModelForm):
+class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        labels = {'group': 'Группа', 'text': 'Сообщение'}
-        help_texts = {'group': 'Выберите группу', 'text': 'Введите ссообщение'}
-        fields = ["group", "text"]
+        fields = ('text', 'group',)
+        help_texts = {
+            'text': 'Тут пишите текст поста',
+            'group': 'Тут выбираете группу, к которой принадлежит пост',
+        }
+        labels = {
+            'text': 'Текст',
+            'group': 'Группа',
+        }

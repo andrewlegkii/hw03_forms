@@ -4,17 +4,28 @@ from .models import Group, Post
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("pk", "text", "pub_date", "author")
-    search_fields = ("text",)
-    list_filter = ("pub_date",)
-    empty_value_display = "-пусто-"
+    """Класс для настройки отображения модели в интерфейсе админки."""
+
+    # Перечисляем поля, которые должны отображаться в админке
+    list_display = ('pk', 'text', 'pub_date', 'author', 'group',)
+    list_editable = ('group',)
+    # Добавляем интерфейс для поиска по тексту постов
+    search_fields = ('text',)
+    # Добавляем возможность фильтрации по дате
+    list_filter = ('pub_date',)
+    empty_value_display = '-пусто-'
 
 
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ("pk", "title", "slug", "description")
-    search_fields = ("title",)
-    empty_value_display = "-пусто-"
+    """Класс для настройки отображения модели в интерфейсе админки."""
+
+    # Перечисляем поля, которые должны отображаться в админке
+    list_display = ('pk', 'title',)
+    search_fields = ('title',)
+    empty_value_display = '-пусто-'
 
 
-admin.site.register(Group, GroupAdmin)
+# При регистрации модели Post источником конфигурации для неё назначаем
+# класс PostAdmin
 admin.site.register(Post, PostAdmin)
+admin.site.register(Group, GroupAdmin)
