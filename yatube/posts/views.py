@@ -47,7 +47,6 @@ def profile(request, username):
     """
 
     author = get_object_or_404(User, username=username)
-    count = author.posts.all().count()
     paginator = Paginator(author.posts.all(), 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -63,7 +62,6 @@ def post_view(request, post_id):
     """View - функция для страницы определенного поста."""
 
     post = get_object_or_404(Post, pk=post_id)
-    count = Post.objects.filter(author=post.author).count()
 
     context = {'post': post,
                }
