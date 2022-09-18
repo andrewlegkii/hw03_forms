@@ -22,7 +22,16 @@
   {% else %}
     <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
   {% endif %}
+    <ul>
+      <li>
+        Пост: {{ post_id }}
+      </li>
+    </ul>
   {% if not forloop.last %}<hr>{% endif %}
   {% endfor %} 
-  {% include 'posts/includes/paginator.html' %}
+  <div class="d-flex justify-content-center">
+    <div>
+      {% include 'posts/includes/paginator.html' %}
+    </div>
+  </div>
 {% endblock %}

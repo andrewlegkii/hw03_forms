@@ -8,13 +8,13 @@
   <form action="" method="post">{% csrf_token %}
     <div class="container py-5">        
       <h1>Все посты пользователя {{ author }} </h1>
-      <h3>Всего постов: {{ author.related_name.count }} </h3>   
+      <h3>Всего постов: {{ author.paginator.count }} </h3>   
       <article>
         {% for post in page_obj %}
           <ul>
             <li>
               Автор: {{ author }}
-                <a href="">Здесь место для вашей ссылки</a>
+                <a href="post.text">ссылка</a>
             </li>
             <li>
               Дата публикации: {{ post.pub_date|date:"d E Y" }}

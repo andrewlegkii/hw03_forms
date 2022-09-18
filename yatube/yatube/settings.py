@@ -17,7 +17,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
     'django.contrib.admin',
-    'django.contrib.auth',  # Приложение для регистрация и авторизация пользователей
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -47,7 +47,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # Добавлен конеткст-процессор
                 'core.context_processors.year.year',
             ],
 

@@ -53,8 +53,7 @@ def profile(request, username):
 
     context = {'author': author,
                'page_obj': page_obj,
-
-               }
+    }
     return render(request, 'posts/profile.html', context)
 
 
@@ -63,8 +62,7 @@ def post_view(request, post_id):
 
     post = get_object_or_404(Post, pk=post_id)
 
-    context = {'post': post,
-               }
+    context = {'post': post}
     return render(request, 'posts/post_detail.html', context)
 
 
@@ -91,7 +89,7 @@ def post_edit(request, post_id):
     """View - функция для редактирования проекта."""
 
     is_edit = True
-    post = get_object_or_404(Post, pk=post_id)
+    post = get_object_or_404(Post, id=post_id)
     if post.author != request.user:
         return redirect('posts:post_detail', pk=post_id)
     form = PostForm(request.POST or None, instance=post)
