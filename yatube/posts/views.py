@@ -52,7 +52,7 @@ def profile(request, username):
 
     context = {'author': author,
                'page_obj': page_obj,
-    }
+               }
     return render(request, 'posts/profile.html', context)
 
 
