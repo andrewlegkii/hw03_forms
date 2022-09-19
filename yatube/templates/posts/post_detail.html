@@ -26,7 +26,7 @@
             Автор: {{ post.author }}
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            Всего постов автора:  {{ posts_count }}
+            Всего постов автора:  {{ posts. }}
           </li>
           <li class="list-group-item">
             <a href="{% url 'posts:profile' username=post.author %}">
@@ -37,7 +37,7 @@
     </aside>
     <article class="col-12 col-md-9">
       <p>{{ post.text|linebreaksbr }}</p>
-      {% if post.author == requser %}
+      {% if request.user == requser %}
       <a class="btn btn-primary" href="{% url 'posts:edit' post.id %}">редактировать запись</a>
       {% endif %}
     </article>

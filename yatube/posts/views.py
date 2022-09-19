@@ -87,7 +87,6 @@ def post_create(request):
 def post_edit(request, post_id):
     """View - функция для редактирования проекта."""
 
-    is_edit = True
     post = get_object_or_404(Post, id=post_id)
     if post.author != request.user:
         return redirect('posts:post_detail', pk=post_id)
@@ -98,4 +97,4 @@ def post_edit(request, post_id):
         post.save()
         return redirect('posts:post_detail', post_id)
     return render(request, 'posts/create_post.html',
-                  {"form": form, 'post': post, "is_edit": is_edit, })
+                  {"form": form, 'post': post, })
