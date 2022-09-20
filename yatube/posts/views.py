@@ -4,22 +4,28 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
+from yatube.settings import PAGINATION_NUM
+
 from posts.forms import PostForm
 
 from .models import Group, Post
 
 User = get_user_model()
 
+def pagination(request, post_list, num_on_page):
+    paginator = Paginator(post_list, num_on_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return page_obj
+
 
 def index(request):
     """View - функция для главной страницы проекта."""
 
-    posts = Post.objects.all()
-    paginator = Paginator(posts, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    post_list = Post.objects.all()
+    page_obj = pagination(request, post_list, PAGINATION_NUM)
     context = {
-        'page_obj': page_obj,
+        'page_obj': page_obj
     }
     return render(request, 'posts/index.html', context)
 

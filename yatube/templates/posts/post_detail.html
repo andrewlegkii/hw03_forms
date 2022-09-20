@@ -37,7 +37,7 @@
     </aside>
     <article class="col-12 col-md-9">
       <p>{{ post.text|linebreaksbr }}</p>
-      {% if request.user == requser %}
+      {% if author.user.requser %}
       <a class="btn btn-primary" href="{% url 'posts:edit' post.id %}">редактировать запись</a>
       {% endif %}
     </article>
