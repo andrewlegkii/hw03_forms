@@ -12,6 +12,7 @@ from .models import Group, Post
 
 User = get_user_model()
 
+
 def pagination(request, post_list, num_on_page):
     paginator = Paginator(post_list, num_on_page)
     page_number = request.GET.get('page')
