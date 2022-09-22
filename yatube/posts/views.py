@@ -35,16 +35,16 @@ def group_posts(request, slug):
     """View - функция для страницы с постами, отфильтрованными по группам."""
 
     group = get_object_or_404(Group, slug=slug)
-    posts = Post.objects.filter(group=group)
-    paginator = Paginator(posts, 10)
+    posts = group.posts.all()
+    paginator = Paginator(posts, PAGINATION_NUM)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
         'group': group,
         'page_obj': page_obj,
     }
-
-    return render(request, 'posts/group_list.html', context)
+ 
+    return render(request, 'posts/group_list.html', context) 
 
 
 def profile(request, username):
@@ -53,14 +53,15 @@ def profile(request, username):
     """
 
     author = get_object_or_404(User, username=username)
-    paginator = Paginator(author.posts.all(), PAGINATION_NUM)
+    user = author.posts.all()
+    paginator = Paginator(user, PAGINATION_NUM)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     context = {'author': author,
                'page_obj': page_obj,
                }
-    return render(request, 'posts/profile.html', context)
+    return render(request, 'posts/profile.html', context) 
 
 
 def post_view(request, post_id):
