@@ -43,8 +43,7 @@ def group_posts(request, slug):
         'group': group,
         'page_obj': page_obj,
     }
- 
-    return render(request, 'posts/group_list.html', context) 
+    return render(request, 'posts/group_list.html', context)
 
 
 def profile(request, username):
@@ -61,7 +60,7 @@ def profile(request, username):
     context = {'author': author,
                'page_obj': page_obj,
                }
-    return render(request, 'posts/profile.html', context) 
+    return render(request, 'posts/profile.html', context)
 
 
 def post_view(request, post_id):
