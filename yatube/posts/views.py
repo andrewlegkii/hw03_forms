@@ -36,9 +36,7 @@ def group_posts(request, slug):
 
     group = get_object_or_404(Group, slug=slug)
     posts = group.posts.all()
-    paginator = Paginator(posts, PAGINATION_NUM)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = pagination(request, posts, PAGINATION_NUM)
     context = {
         'group': group,
         'page_obj': page_obj,
@@ -50,12 +48,9 @@ def profile(request, username):
     """View - функция для страницы с постами пользователя,
        вошедшего на сайт.
     """
-
     author = get_object_or_404(User, username=username)
     user = author.posts.all()
-    paginator = Paginator(user, PAGINATION_NUM)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = pagination(request, user, PAGINATION_NUM)
 
     context = {'author': author,
                'page_obj': page_obj,
